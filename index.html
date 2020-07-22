@@ -778,6 +778,7 @@
           </div>
         </div>
       </div>
+      <!-- <div class="test"></div> -->
     </footer>
   </section>
   <!--/ Section Contact-footer End /-->
@@ -811,6 +812,10 @@
   <!-- D3 America SVG -->
   <script>
     const svg = d3.select(".map")
+    const div = d3.select(".map")
+		    .append("div")   
+    		.attr("class", "test")               
+    		.style("opacity", 0);
     const width = 500;
     const height = 300;
     const projection = d3.geoAlbersUsa()
@@ -820,7 +825,7 @@
       .projection(projection);
     const interest = d3.map();
 
-    const color =  ["gray","#3B5E2B","#00FF00"]
+    const color =  ["gray","#3B5E2B","#00FF00", ""]
 
     svg.attr("width", width)
 			.attr("height", height);
@@ -843,25 +848,35 @@
         return color[d.interest];
       })
       .attr("d", path)
+
+ const home = {lat:39.9168,long:-75.3877,name:"Media, Pennsylvania"}
+
+ svg
+      .append("circle")
+        .attr("cx", projection([home.long, home.lat])[0])
+        .attr("cy", projection([home.long, home.lat])[1])
+        .attr("r", 7)
+        .style("fill", "#ff5050")	
+	    	.style("opacity", 0.85)
     }
+
 
     const legend = d3.select(".legend")
 
-    legend.attr("width", "140px")
-			.attr("height", "75px")
+    legend.attr("width", "150px")
+			.attr("height", "95px")
       .style("background","white")
       .style("border-radius","15px")
 
+legend.append("circle").attr("cx",20).attr("cy",35).attr("r", 6).style("fill", color[2])
+legend.append("circle").attr("cx",20).attr("cy",55).attr("r", 6).style("fill", color[1])
+legend.append("circle").attr("cx",20).attr("cy",75).attr("r", 6).style("fill", color[0])
+legend.append("circle").attr("cx",20).attr("cy",15).attr("r", 6).style("fill", "#ff5050")
 
-
-legend.append("circle").attr("cx",20).attr("cy",15).attr("r", 6).style("fill", color[2])
-legend.append("circle").attr("cx",20).attr("cy",35).attr("r", 6).style("fill", color[1])
-legend.append("circle").attr("cx",20).attr("cy",55).attr("r", 6).style("fill", color[0])
-legend.append("text").attr("x", 40).attr("y", 15).text("Great Interest").style("font-size", "15px").attr("alignment-baseline","middle")
-legend.append("text").attr("x", 40).attr("y", 35).text("Fair Interest").style("font-size", "15px").attr("alignment-baseline","middle")
-legend.append("text").attr("x", 40).attr("y", 55).text("Little Interest").style("font-size", "15px").attr("alignment-baseline","middle")
-
-
+legend.append("text").attr("x", 40).attr("y", 35).text("Great Interest").style("font-size", "15px").attr("alignment-baseline","middle")
+legend.append("text").attr("x", 40).attr("y", 55).text("Fair Interest").style("font-size", "15px").attr("alignment-baseline","middle")
+legend.append("text").attr("x", 40).attr("y", 75).text("Little Interest").style("font-size", "15px").attr("alignment-baseline","middle")
+legend.append("text").attr("x", 40).attr("y", 15).text("Current Location").style("font-size", "15px").attr("alignment-baseline","middle")
 
     </script> 
 
